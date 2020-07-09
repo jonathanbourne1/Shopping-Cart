@@ -5,33 +5,57 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 //drawer
 import {createDrawerNavigator} from '@react-navigation/drawer';
-//Screens
-import ProductsOverView from '../screens/shop/items-overview';
-import ProductDetail from '../screens/shop/item-detail';
-import ProductsCart from '../screens/shop/cart';
-//CREATE STACK NAVIGATOR
-const Stack = createStackNavigator();
-
-const StackNav: FC<{}> = () => {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen component={ProductsOverView} name="shop.products" />
-        <Stack.Screen component={ProductDetail} name="shop.details" />
-        <Stack.Screen component={ProductsCart} name="shop.cart" />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-};
-
+//interface
 export interface Navigation {
   push: (route: string) => void;
   navigate: () => {route: string};
-  setOptions: () => void;
+  toggleDrawer: () => void;
+  setOptions: (arguments: object) => void;
   route: {
     name: string;
     params: object;
   };
 }
+//Screens
+import ProductsOverView from '../screens/shop/items-overview';
+import ProductDetail from '../screens/shop/item-detail';
+import ProductsCart from '../screens/shop/cart';
+//userScreen
+import NewItem from '../screens/user/new-Item';
 
-export default StackNav;
+//CREATE STACK NAVIGATOR
+const Stack = createStackNavigator();
+
+const StackNav: FC<{}> = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen component={ProductsOverView} name="shop.products" />
+      <Stack.Screen component={ProductDetail} name="shop.details" />
+      <Stack.Screen component={ProductsCart} name="shop.cart" />
+      <Stack.Screen component={NewItem} name="shop.newItem" />
+    </Stack.Navigator>
+  );
+};
+
+const StackNewItem = createStackNavigator();
+const newItemNav = () => {
+  return (
+    <StackNewItem.Navigator>
+      <StackNewItem.Screen component={NewItem} name="user.new-item" />
+    </StackNewItem.Navigator>
+  );
+};
+const Drawer = createDrawerNavigator();
+
+const drawerNav = () => {
+  return (
+    <NavigationContainer>
+      <Drawer.Navigator>
+        <Drawer.Screen component={StackNav} name="stack.Navigator" />
+        <Stack.Screen component={newItemNav} name="stack.newItem" />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+};
+
+export default drawerNav;

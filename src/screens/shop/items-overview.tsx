@@ -2,7 +2,10 @@ import React, {FC} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import {Button} from 'react-native';
 import {Navigation} from '../../navigation/navigation';
-import {NavigationContainer} from '@react-navigation/native';
+import {HeaderButtons, Item} from 'react-navigation-header-buttons';
+import HeaderButton from '../../components/header-button';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 interface Props {
   navigation: Navigation;
 }
@@ -10,6 +13,23 @@ interface Props {
 const ItemsOverView: FC<Props> = (props) => {
   const {navigation} = props;
   console.log(props);
+  navigation.setOptions({
+    headerRight: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          title="cart"
+          iconName="ios-cart-outline"
+          iconSize={32}
+          onPress={() => {
+            navigation.push('shop.cart');
+          }}
+        />
+      </HeaderButtons>
+    ),
+    headerLeft: () => (
+      <Icon name="menu" size={32} onPress={() => navigation.toggleDrawer()} />
+    ),
+  });
   return (
     <>
       <View>

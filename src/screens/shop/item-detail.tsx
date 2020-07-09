@@ -12,12 +12,6 @@ const ProductDetail: FC<Props> = (props) => {
     <>
       <View>
         <Text>Product Detail</Text>
-        <Button
-          title="go to details"
-          onPress={() => {
-            navigation.push('shop.cart');
-          }}
-        />
       </View>
     </>
   );
